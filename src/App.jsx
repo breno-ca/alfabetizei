@@ -14,6 +14,7 @@ export function App() {
   const [revealed, setRevealed] = useState('')
   const [speakingIndex, setSpeakingIndex] = useState(null)
   const [audioCursor, setAudioCursor] = useState(0)
+  const keyboardInput = useRef(null)
   const playingLetters = useRef(false)
 
   const resetExercise = (nextWord) => {
@@ -46,6 +47,10 @@ export function App() {
     if (typedLetter !== nextLetter) return
 
     setAccepted((current) => current + nextLetter)
+  }
+
+  const focusKeyboardInput = () => {
+    keyboardInput.current?.focus()
   }
 
   useEffect(() => {
@@ -88,6 +93,9 @@ export function App() {
 
   useEffect(() => {
     const onKeyDown = (event) => {
+      const cameFromKeyboardInput = event.target === keyboardInput.current
+      if (cameFromKeyboardInput) return
+
       if (event.key === 'Backspace') {
         removeLastAcceptedLetter()
         return
@@ -103,11 +111,30 @@ export function App() {
   }, [accepted.length, revealed.length, speakingIndex, word])
 
   return (
-    <main className="screen">
+    <main className="screen" onClick={focusKeyboardInput}>
       <p className="hint">leia, ouça, digite</p>
 
       <PracticeStage currentIndex={speakingIndex} onPlayWord={() => playWord(word)} word={word} />
       <TypingSlots accepted={accepted} currentIndex={speakingIndex} revealed={revealed} word={word} />
+
+      <input
+        ref={keyboardInput}
+        className="keyboard-input"
+        inputMode="text"
+        autoCapitalize="none"
+        autoComplete="off"
+        aria-label="Digite a palavra"
+        onBeforeInput={(event) => {
+          if (!event.data) return
+
+          acceptTypedLetter(event.data)
+        }}
+        onKeyDown={(event) => {
+          if (event.key !== 'Backspace') return
+
+          removeLastAcceptedLetter()
+        }}
+      />
     </main>
   )
 }
