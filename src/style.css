@@ -1,0 +1,139 @@
+:root {
+  color: #17120d;
+  background: #f7ecd6;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  position: relative;
+}
+
+.hint {
+  position: absolute;
+  top: 28px;
+  font-size: 14px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+.practice {
+  display: flex;
+  align-items: center;
+  gap: clamp(28px, 7vw, 88px);
+  margin-left: clamp(128px, 17vw, 240px);
+}
+
+.words {
+  min-width: min(72vw, 620px);
+  text-align: center;
+}
+
+p {
+  margin: 0;
+}
+
+.upper {
+  font-size: clamp(56px, 12vw, 140px);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.cursive {
+  margin-top: 8px;
+  font-family: 'Brush Script MT', 'Segoe Script', cursive;
+  font-size: clamp(54px, 11vw, 132px);
+  line-height: 0.9;
+}
+
+.upper span,
+.cursive span {
+  display: inline-block;
+  padding: 0 0.03em;
+  transition: color 160ms ease, text-shadow 160ms ease, transform 160ms ease;
+}
+
+.upper .current-letter,
+.cursive .current-letter {
+  color: #b6761d;
+  text-shadow: 0 8px 22px rgba(182, 118, 29, 0.24);
+  transform: translateY(-0.03em);
+}
+
+.slots {
+  position: absolute;
+  bottom: clamp(48px, 12vh, 120px);
+  display: flex;
+  justify-content: center;
+  gap: clamp(10px, 2vw, 20px);
+  font-size: clamp(42px, 8vw, 92px);
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.slots span {
+  position: relative;
+  color: rgba(23, 18, 13, 0.45);
+}
+
+.slots .accepted {
+  color: #b6761d;
+}
+
+.slots small {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  margin-top: 10px;
+  color: #6f4b29;
+  font: 700 30px/1 Georgia, 'Times New Roman', serif;
+}
+
+.sound {
+  width: 172px;
+  height: 56px;
+  border: 0;
+  border-radius: 0;
+  background: #7b4f2c;
+  box-shadow: 0 14px 28px rgba(64, 39, 19, 0.2);
+  color: #fff4df;
+  font: 700 13px/1.2 Georgia, 'Times New Roman', serif;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.sound:active {
+  transform: translateY(2px);
+  box-shadow: 0 8px 18px rgba(64, 39, 19, 0.18);
+}
+
+@media (max-width: 720px) {
+  .practice {
+    flex-direction: column;
+    gap: 24px;
+    margin-left: 0;
+  }
+
+  .sound {
+    width: 172px;
+    height: 56px;
+  }
+
+}
